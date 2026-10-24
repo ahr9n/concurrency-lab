@@ -17,14 +17,13 @@ Rebuild from a blank file with no notes, explaining aloud as if an interviewer w
 | Concurrent web crawler with dedupe | 15 min | 14 |
 | Pseudocode-only version of the log writer (no compiler) | 15 min | 11 |
 
-Practise the pseudocode version too: some reports say this round is done in pseudocode or is mostly verbal.
+Practise the pseudocode version too: some rounds are done in pseudocode or are mostly verbal.
+
+**Bug hunt:** the 12 broken programs in [drills/bughunt/](drills/bughunt/README.md) (`make bug N=01`). Target: under 10 min each, naming the tool that should have caught it. Debugging concurrent code is an interview format of its own.
 
 ## 2. Mock interviews (minimum 3)
-Ask Claude: *"Act as a senior interviewer running a concurrency round. Give me the log-writer problem, add constraints mid-way,
-grill me on durability, ordering, and happens-before, and don't accept hand-waving."*
-1. Log writer → change of constraints (async push + `WaitDurable`, then file rotation without stalls)
-2. Verbal only: memory model, CAS/ABA, map internals (Go and Java), mutex internals
-3. Cache or crawler → scale it → test it
+Use the cards in [mocks.md](mocks.md): 8 problems with escalating constraints and probes. Do at least one
+log-writer card (#7), one verbal-only session (memory model, CAS/ABA, map and mutex internals), and one scale-it card (#4 or #6).
 
 ## 3. The answer protocol (use it in every drill)
 1. Restate the requirements, and ask about durability, ordering guarantee, capacity, and failure behaviour.
@@ -35,7 +34,7 @@ grill me on durability, ordering, and happens-before, and don't accept hand-wavi
 6. Name the production equivalent and when you'd use it instead.
 
 ## 4. Java bridge (2 sessions)
-The job description lists Java/Scala/C++, and verbal probes are often Java-flavoured. See the Java section in `reference.md`.
+Many interviewers think in Java or C++, so verbal probes are often Java-flavoured. See the Java section in `reference.md`.
 
 ## 5. Before a real loop
 - [ ] Confirm with the recruiter that Go is allowed in the coding and concurrency rounds, and whether the round uses pseudocode, a runnable IDE, or Google Docs. **Not confirmed by any source.**

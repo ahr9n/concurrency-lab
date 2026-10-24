@@ -13,7 +13,7 @@ rounds) and beyond and at real production judgement.
   - `roadmap.md` — what to build, experiments to run, tests to write, the timed drill, exit criteria.
   - `reference.md` — concepts, hidden gotchas, questions you must be able to answer, reading, and **real-world reading** (big-tech reports + production Go code, mapped to the step where you read them).
   - `NOTES.md` (you write it) — your one-page interview answer sheet for that topic.
-- `interview/` — question bank, timed drills log, Java bridge, company intel.
+- `interview/` — question bank, mock cards, bug-hunt drills, drills log, Java bridge.
 
 ## Layout
 
@@ -37,9 +37,23 @@ rounds) and beyond and at real production judgement.
 | `15-runtime-internals` | GMP scheduler, hchan, mutex impl, netpoller, GC interaction | Depth |
 | `16-network-services` | servers, connection pools, pub/sub broker, deadlines | Breadth |
 | `17-distributed-coordination` | leases, fencing tokens, distributed locks, idempotency | Breadth |
-| `interview/` | drills, question bank, Java bridge, company intel | Prep |
+| `18-db-concurrency` | isolation anomalies, locking reads, deadlock retry, Spanner transactions | Daily work |
+| `19-verification-and-simulation` | TLA+ model checking, deterministic simulation testing | Depth (stretch) |
+| `interview/` | question bank, mock cards, bug-hunt drills, Java bridge | Prep |
 
-Toolchain: Go 1.27 (`go.mod`). Every package must pass `go test -race -count=50 ./...`.
+## Tooling
+Toolchain: Go 1.27 (`go.mod`). Lint needs golangci-lint **v2.13+** (`go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0`).
+
+```sh
+make test              # race tests, all modules (-count=50); make test M=05 for one module
+make bench M=11        # benchmarks for one module
+make vet lint          # static checks (CI runs vet, lint, race tests on every push)
+make bug N=04          # one bug-hunt drill; make bugs for all; make bug-reset to start over
+make progress          # checked roadmap items per tier
+```
+
+- Start every module's notes from [templates/NOTES.md](templates/NOTES.md).
+- Package names can't start with a digit: in `05-bounded-queue/condq/`, use `package condq`.
 
 ## Disclaimer
 Personal study notes, not affiliated with or endorsed by any company mentioned. Company and product names are

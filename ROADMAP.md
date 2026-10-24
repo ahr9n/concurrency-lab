@@ -41,6 +41,8 @@ Every item in every module roadmap is tagged with a tier:
 | 15 runtime internals | D | GMP, netpoller, channels, and GC are S (senior engineers are expected to know them) |
 | 16 network services | S | Connection pools, coalescing, load balancing: daily life at scale |
 | 17 distributed coordination | S | Idempotency is E; vector clocks and Raft are T |
+| 18 DB concurrency | **E/S** | Lost update, deadlock retry, and `WithTx` are E; gap locks, SKIP LOCKED, and Spanner are S |
+| 19 verification and simulation | S/T | TLA+ on your own queue/log writer and a small DST harness; optional stretch |
 
 ### Sustainability rules
 - Budget **hours, not scope**: 6–8 h/week. When the hours are used up, stop, even mid-module.
@@ -64,9 +66,9 @@ Every item in every module roadmap is tagged with a tier:
 ## Definition of done (every module)
 
 1. **At least 2 implementations** where the module asks for them, with trade-offs written down.
-2. **Tests** pass `go test -race -count=50 ./NN-module/...`. Anything involving time or blocking also has a `testing/synctest` test.
+2. **Tests** pass `make test M=NN` (race detector, `-count=50`). Anything involving time or blocking also has a `testing/synctest` test.
 3. **Benchmark** with `b.RunParallel` / `b.Loop` and recorded numbers (keep them in `NOTES.md`).
-4. **`NOTES.md`** in the module (keep it to one page):
+4. **`NOTES.md`** in the module, copied from [templates/NOTES.md](templates/NOTES.md) (keep it to one page):
    - the invariants
    - the happens-before edges that make it correct
    - the trade-offs

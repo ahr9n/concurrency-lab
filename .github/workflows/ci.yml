@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - name: vet
+        run: go vet ./...
+      - name: lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.15.0
+      - name: test (race)
+        run: go test -race -count=3 -timeout 15m ./...
+      # Drills are intentionally buggy: only make sure they still compile.
+      - name: bughunt drills compile
+        run: go test -tags bughunt -vet=off -run '^$' ./interview/drills/bughunt/...
