@@ -1,0 +1,7 @@
+*.test
+*.out
+*.prof
+*.pprof
+trace.out
+/bin/
+/tmp/
