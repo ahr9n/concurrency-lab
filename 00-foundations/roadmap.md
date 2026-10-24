@@ -6,6 +6,9 @@
 before you touch any higher-level primitive.
 
 ## Build
+> **Scaffolding:** `counter/` and `publish/` already contain the interface, the tests, and the benchmarks. You write the implementations,
+> then register each one in the `implementations` table of its `_test.go` file (nil entries are skipped). The rest you create from scratch.
+
 - [ ] `[E]` `racy/`: a counter incremented by N goroutines with plain `++`. Observe lost updates. Run it under `-race`.
 - [ ] `[E]` `mapcrash/`: concurrent writes to a plain `map`. Observe `fatal error: concurrent map writes`, and confirm `recover` can't catch it.
 - [ ] `[E]` `counter/` with 5 implementations behind one interface `Inc()` / `Load()`:
